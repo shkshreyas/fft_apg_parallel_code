@@ -1,10 +1,12 @@
-# FFT Implementation in C
+# FFT and APG Implementations in C
 
-This repository contains a Fast Fourier Transform (FFT) implementation in C with support for multiple algorithms. The code is designed to work with or without OpenMP support.
+This repository contains a Fast Fourier Transform (FFT) implementation and an Adaptive Parallel Genetic Algorithm (APG) implementation in C with OpenMP support for parallel processing.
 
-## Compilation
+## FFT Implementation
 
-To compile the code, use the following command:
+### Compilation
+
+To compile the FFT code, use the following command:
 
 ```bash
 gcc -o fft_openmp fft_openmp.c -lm
@@ -16,7 +18,58 @@ If you have OpenMP support, you can enable it with:
 gcc -o fft_openmp fft_openmp.c -lm -fopenmp
 ```
 
-## Usage
+## APG OpenMP Implementation
+
+### Compilation
+
+To compile the Adaptive Parallel Genetic Algorithm with OpenMP support, use the following command:
+
+```bash
+gcc -o apg_openmp apg_openmp.c -fopenmp -lm -O2
+```
+
+You can adjust optimization levels for better performance:
+
+```bash
+# With aggressive optimization
+gcc -o apg_openmp apg_openmp.c -fopenmp -lm -O3 -march=native
+
+# With debugging information
+gcc -o apg_openmp apg_openmp.c -fopenmp -lm -g
+```
+
+### Usage
+
+The APG program can be run directly after compilation:
+
+```bash
+./apg_openmp
+```
+
+You can control the number of threads used by OpenMP by setting the environment variable:
+
+```bash
+# Run with 4 threads
+set OMP_NUM_THREADS=4 && ./apg_openmp
+
+# Run with 8 threads
+set OMP_NUM_THREADS=8 && ./apg_openmp
+```
+
+### Output
+
+The program outputs:
+- Information about the number of threads being used
+- Generation-by-generation progress with fitness metrics
+- Total execution time upon completion
+
+### Performance Considerations
+
+- The algorithm automatically adapts thread distribution based on workload
+- Locality-aware processing improves cache efficiency
+- Auto-tuning occurs at regular intervals to optimize parameters
+
+## FFT Usage
 
 The program can be run with command-line arguments to specify the FFT size and algorithm:
 
